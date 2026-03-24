@@ -1,5 +1,5 @@
 async function login(e) {
-    try{
+    try {
         e.preventDefault();
         console.log(e.target.email.value);
 
@@ -10,14 +10,14 @@ async function login(e) {
 
         console.log(loginDetails)
         const response = await axios.post('http://localhost:3000/user/login', loginDetails)
-            if(response.status === 200){
-                alert(response.data.message)
-                console.log(response.data);
-                localStorage.setItem('token', response.data.token)
-                window.location.href = "../index.html"
-            }
+        if (response.status === 200) {
+            alert(response.data.message)
+            console.log(response.data);
+            localStorage.setItem('token', response.data.token)
+            window.location.href = "./index.html"
+        }
     }
-    catch(err){
+    catch (err) {
         console.log(JSON.stringify(err));
         document.body.innerHTML += `<div style="color: red;">${err.message}</div>`;
     }
@@ -25,5 +25,5 @@ async function login(e) {
 
 function forgotpassword() {
     window.location.href = "./forgot.html"
-    
+
 }
