@@ -2,7 +2,7 @@ const AWS = require('aws-sdk')
 
 const uploadToS3= (data, filename) =>
 {
-    const BUCKET_NAME = 'chatappbucket321';
+    const BUCKET_NAME = 'chatappbucket32';
 
 
     let s3bucket = new AWS.S3({

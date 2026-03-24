@@ -19,17 +19,26 @@ const signup = async (req, res) => {
             return res.status(400).json({ err: "Bad parameters - Something is missing" })
         }
 
+        const existingUser = await User.find({ email });
+        if (existingUser.length > 0) {
+            return res.status(403).json({ success: false, message: "User already exists" });
+        }
+
         const saltrounds = 10;
         bcrypt.hash(password, saltrounds, async(err, hash) => {
             // console.log(err)
-            const newUser = new User({
-                name,
-                email,
-                password: hash
-            });
-    
-            await newUser.save();
-            res.status(201).json({message: 'Successfuly create new user'})
+            try {
+                const newUser = new User({
+                    name,
+                    email,
+                    password: hash
+                });
+        
+                await newUser.save();
+                res.status(201).json({message: 'Successfuly create new user'})
+            } catch (err) {
+                res.status(500).json({ success: false, message: err.message || "Failed to save user" });
+            }
         })
     } catch (err) {
         res.status(500).json(err);

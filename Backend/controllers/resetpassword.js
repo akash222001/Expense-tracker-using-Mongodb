@@ -80,6 +80,8 @@ const forgotpassword = async (req, res) => {
 
 }
 
+
+
 const resetpassword = (req, res) => {
     const id = req.params.id;
     // console.log(id)
@@ -155,6 +157,7 @@ const updatepassword = (req, res) => {
     }
 
 }
+
 
 
 module.exports = {

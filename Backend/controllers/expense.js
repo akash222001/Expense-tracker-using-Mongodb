@@ -69,10 +69,10 @@ const addexpense = async (req, res) => {
         });
 
         await expense.save();
-
+        // console.log(req.user.totalExpenses)
         const totalExpense = Number(req.user.totalExpenses) + Number(expenseamount)
         // console.log(totalExpense);
-        await User.findByIdAndUpdate(req.user._id, { totalExpense: totalExpense },);
+        await User.findByIdAndUpdate(req.user._id, { totalExpenses: totalExpense },);
 
         return res.status(201).json({ expense, success: true });
 
@@ -125,9 +125,16 @@ const deleteexpense = async (req, res) => {
 
         const expenseid = req.params.expenseid;
         const expense = await Expense.find({ _id: expenseid });
+        // console.log(expense)
+
 
         const expenseamount = expense[0].expenseamount;
+        // console.log(expenseamount)
+
+        
         const userId = expense[0].userId;
+        // console.log(userId)
+
 
         if (expenseid == undefined || expenseid.length === 0) {
             res.status(400).json({ success: false })
@@ -137,6 +144,7 @@ const deleteexpense = async (req, res) => {
         
 
         var totalExpense = user[0].totalExpenses;// Here totalExpense variable in created. 
+        // console.log(totalExpense)
 
         totalExpense = totalExpense - expenseamount;
         // console.log(totalExpense)

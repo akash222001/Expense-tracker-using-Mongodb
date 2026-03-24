@@ -1,6 +1,5 @@
 const path = require('path');
 const fs = require('fs');
-const https = require('https');
 
 const express = require('express');
 const bodyParser = require('body-parser');
@@ -16,8 +15,6 @@ const Order = require('./models/orders');
 const Forgotpassword = require('./models/forgotpassword');
 const Filesdownloaded = require('./models/filesdownloaded');
 
-const privateKey = fs.readFileSync('server.key');
-const certificate = fs.readFileSync('server.cert');
 
 var cors = require('cors');
 
@@ -33,7 +30,6 @@ dotenv.config();
 app.use(cors());
 
 
-const { nextTick } = require('process');
 const userRoutes = require('./routes/user');
 const expenseRoutes = require('./routes/expense')
 const purchasepremiumRoutes = require('./routes/purchase');
@@ -46,7 +42,6 @@ const exp = require('constants');
 
 
 app.use(bodyParser.json({ extended: false }));
-// app.use(express.static(path.join(__dirname, 'public')));
 
 const accessLogStream = fs.createWriteStream(path.join(__dirname, 'access.log'), {flags: 'a'});
 
